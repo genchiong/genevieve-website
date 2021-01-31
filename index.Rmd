@@ -3,15 +3,14 @@ title: "Genevieve Chiong"
 image: "IMG_4481.jpg"
 links:
   - label: LinkedIn
-    url: "https://linkedin.com/"
-  - label: Twitter
-    url: "https://twitter.com/"
+    url: "https://linkedin.com/in/genevievechiong"
   - label: GitHub
-    url: "https://github.com/"
+    url: "https://github.com/genchiong"
   - label: Email
-    url: "mailto:email@email.com"
+    url: "mailto:gchiong@ucsb.edu"
 output:
   postcards::jolla
 site: distill::distill_website
 ---
  
+I am a first-year Master's student at the UCSB Bren School of Environmental Science & Management, currently based in the San Francisco Bay Area. When I'm not outdoors, I enjoy baking, reading, and visiting museums. 

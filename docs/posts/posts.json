@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/2021-01-30-welcome/",
+    "title": "Welcome",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Genevieve",
+        "url": {}
+      }
+    ],
+    "date": "2021-01-30",
+    "categories": [],
+    "contents": "\nWelcome to my first blog post! :)\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-01-30T20:30:43-08:00",
+    "input_file": {}
+  }
+]
