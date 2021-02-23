@@ -3,6 +3,7 @@ title: "Genevieve Chiong"
 description: |
   Genevieve Chiong
 output_dir: "docs"
+theme: new_theme.css
 navbar:
   right:
     - text: "Home"
@@ -10,8 +11,15 @@ navbar:
     - text: "About Me"
       href: about.html
     - text: "CV"
-      href:
+      href: CV_vitae.html
+    - text: "Data Viz"
+      href: ca_oil_spills.html
+    - text: "More Data Viz"
+      href: cetacean.html
+    - text: "Text Analysis"
+      href: 
+    - text: "Data Viz 3"
+      href: candy_sankey.html
     - text: "Blog"
       href: blog.html
-      
 output: distill::distill_article

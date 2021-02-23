@@ -1,0 +1,70 @@
+---
+title: "Candy Company Sankey"
+description: |
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(ggalluvial)
+```
+
+```{r}
+plastics <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-01-26/plastics.csv')
+```
+
+```{r}
+plastics_clean <- plastics %>% 
+  filter(year == 2020) %>% 
+  mutate(parent_company = ifelse(tolower(parent_company) == "null", 
+                                 "Unbranded", 
+                                 parent_company)) %>%
+  mutate(parent_company = ifelse(parent_company == "Nestle",
+                                 "Nestlé",
+                                 parent_company)) %>% 
+  mutate(parent_company = ifelse(parent_company == "Hershey Company",
+                                 "Hershey",
+                                 parent_company)) %>% 
+  mutate(parent_company = ifelse(parent_company == "Mars, Incorporated",
+                                 "Mars",
+                                 parent_company)) %>% 
+  pivot_longer(empty:grand_total, 
+               names_to = "plastic_type", 
+               values_to = "count",
+               values_drop_na = TRUE) %>% 
+  filter(count != 0)
+```
+
+```{r}
+plastics_company <- plastics_clean %>%
+  group_by(parent_company, plastic_type) %>%
+  summarize(total = sum(count),
+            n = n()) %>%
+  filter(n > 1) %>%
+  ungroup()
+
+plastic_subcompany <- plastics_company %>% 
+  filter(parent_company %in% c("Nestlé", "Hershey", "Mars")) %>% 
+  filter(plastic_type != "grand_total",
+           plastic_type != "empty")
+```
+
+```{r}
+ggplot(data = plastic_subcompany,
+       aes(y = total,
+           axis1 = fct_reorder(plastic_type, total),
+           axis2 = fct_reorder(parent_company, total),
+           fill = fct_reorder(plastic_type, total))) +
+  geom_alluvium(width = 1/20) +
+  geom_stratum(width = 1/10, alpha = 0.5) +
+  geom_text(stat = "stratum", 
+            aes(label = fct_reorder(parent_company, total)),
+            nudge_x = 0.10) + 
+  coord_flip() +
+  scale_fill_brewer(palette = "Set3") +
+  labs(fill = "Plastic Type",
+       title = "Plastic Types from Candy Companies Found Worldwide in 2020") +
+  theme_void() +
+  theme(legend.position = "bottom") 
+```
