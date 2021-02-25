@@ -1,0 +1,97 @@
+---
+title: "Text Analysis: The Red Headed League by Sir Arthur Conan Doyle"
+description: |
+  A short description of the post.
+author:
+  - name: Genevieve
+    url: {}
+date: 02-24-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+
+library(tidyverse)
+library(here)
+library(janitor)
+library(textdata)
+library(ggwordcloud)
+library(readtext)
+library(pdftools)
+library(tidytext)
+```
+
+```{r}
+# Read in the data
+red_headed_league_text <- pdf_text("red_headed_league.pdf")
+```
+
+```{r}
+# Wrangle data to get tokens into tidy format, removing stop words
+red_headed_league_tidy <- data.frame(red_headed_league_text) %>% 
+  mutate(text_full = str_split(red_headed_league_text, pattern = "\\n")) %>% 
+  unnest(text_full) %>% 
+  mutate(text_full = str_trim(text_full)) %>% 
+  unnest_tokens(word, text_full) %>% 
+  dplyr::select(-red_headed_league_text) %>% 
+  anti_join(stop_words)
+```
+
+```{r}
+# Create a subset of the top 150 words in the whole text 
+top_150 <- red_headed_league_tidy %>% 
+  count(word) %>% 
+  arrange(-n) %>% 
+  slice(1:150)
+
+# Word cloud of counts for the most frequently used words in the entire text
+top_150_cloud <- ggplot(data = top_150,
+                        aes(label = word)) +
+  geom_text_wordcloud(aes(color = n, 
+                          size = n), 
+                      shape = "star") +
+  scale_size_area(max_size = 8) +
+    scale_color_gradientn(colors = c("goldenrod3", "violetred", "steelblue4")) +
+  theme_minimal()
+
+top_150_cloud
+```
+
+**Figure 1.** The 150 most frequently used words in Sir Author Conan Doyle's "The Red Headed League". Data: Doyle, A.C. 1892.
+
+```{r}
+# Perform sentiment analysis using the "nrc" lexicon on the entire text
+red_headed_league_nrc <- red_headed_league_tidy %>% 
+  inner_join(get_sentiments("nrc"))
+
+red_headed_league_nrc_counts <- red_headed_league_nrc %>% 
+  count(sentiment)
+
+# Create a final visualization
+red_headed_league_nrc_counts %>% 
+  mutate(sentiment = fct_reorder(sentiment, n)) %>% 
+  ggplot(aes(x = sentiment,
+             y = n,
+             fill = sentiment)) +
+  geom_col() +
+  coord_flip() +
+  theme_minimal() +
+  labs(x = "Sentiment\n",
+       y = "\nWord Count") +
+  theme(legend.position = "none")
+
+```
+
+**Figure 2.** Sentiment analysis of Sir Arthur Conan Doyle's "The Red Headed League" using the NRC Emotion Lexicon. Data: Doyle, A.C. 1892.; Mohammed, S. and Turney, P. 2013.)
+
+
+**Citations**
+
+Doyle, A.C. 1892. The Adventures of Sherlock Holmes London, England: George Newnes Ltd. https://etc.usf.edu/lit2go/32/the-adventures-of-sherlock-holmes/346/adventure-2-the-red-headed-league/
+
+Crowdsourcing a Word-Emotion Association Lexicon, Saif Mohammad and Peter Turney, Computational Intelligence, 29 (3), 436-465, 2013.
+
