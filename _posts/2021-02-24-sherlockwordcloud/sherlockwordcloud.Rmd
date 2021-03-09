@@ -25,7 +25,7 @@ library(tidytext)
 
 ### Introduction 
 
-This report uses the text from the short story "The Red Headed League" by Sir Arthur Conan Doyle to create a visualization of counts for the most frequently used words, finalized in a word cloud, and to perform sentiment analysis using the NRC Lexicon.
+This analysis uses the text from the short story "The Red Headed League" by Sir Arthur Conan Doyle to create a visualization of counts for the most frequently used words, finalized in a word cloud, and to perform sentiment analysis using the NRC Lexicon.
 
 
 ```{r}
@@ -100,8 +100,7 @@ Data analysis reveals the following findings:
 - Words with a positive sentiment had the highest count in the story, followed by the sentiments trust and negative. 
 
 
-
-**Citations**
+### Citations
 
 Doyle, A.C. 1892. The Adventures of Sherlock Holmes London, England: George Newnes Ltd. https://etc.usf.edu/lit2go/32/the-adventures-of-sherlock-holmes/346/adventure-2-the-red-headed-league/
 

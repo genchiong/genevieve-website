@@ -1,5 +1,5 @@
 ---
-title: "California Oil Spill Incident Tracking"
+title: "California Oil Spill Incidents in 2008"
 description: |
 author:
   - name: Genevieve
@@ -22,12 +22,7 @@ library(tmap)
 
 ### Introduction
 
-California Department of Fish and Wildlife, Office of Spill Prevention and Response. 2009. 
-
-California map of the number of inland oil spill events by county in 2008. Modoc County is not shown as it had zero spill events. Data: California Department of Fish and Wildlife. 2009."}
-
-# Static chloropleth map in which the fill color for each county depends on the count of inland oil spill events by county for the 2008 oil spill data 
-
+California Department of Fish and Wildlife's Office of Spill Prevention and Response (OSPR) Incident Tracking Database is a statewide oil spill tracking information system. The data are collected by OSPR Field response Team members for Marine oil spills and by OSPR Inland Pollution Coordinators and Wardens for Inland incidents. This analysis uses the data to create an interactive map showing the location of oil spill events and a static chloropleth map dependent on the inland oil spill event counts by county for 2008. 
 
 ```{r}
 # Read in the CA county data (TIGER shapefile)
@@ -58,6 +53,7 @@ ggplot() +
   geom_sf(data = oil_spill)
 ```
 
+
 ```{r}
 # Exploratory interactive map showing the location of oil spill events 
 tmap_mode("view")
@@ -68,10 +64,9 @@ tm_shape(ca_counties) +
 tm_shape(oil_spill) +
   tm_dots()
 ```
+**Figure 1.** Interactive map of California oil spill events in 2008. Data: California Department of Fish and Wildlife. 2009.
 
-
-```{r, fig.cap = "**Figure 1.** California map of the number of inland oil spill events by county in 2008. Modoc County is not shown as it had zero spill events. Data: California Department of Fish and Wildlife. 2009."}
-
+```{r}
 # Static chloropleth map in which the fill color for each county depends on the count of inland oil spill events by county for the 2008 oil spill data 
 
 ca_oil_spills <- ca_counties %>% 
@@ -91,9 +86,10 @@ ggplot(data = oil_spill_counts) +
        x = "\nLongitude",
        y = "Latitude\n")
 ```
+**Figure 2.** California map of the number of inland oil spill events by county in 2008. Modoc County is not shown as it had zero spill events. Data: California Department of Fish and Wildlife. 2009."
 
 
-#### **Citations**
+### Citations
 
 California Department of Fish and Wildlife, Office of Spill Prevention and Response. 2009. Oil Spill Incident Tracking [ds394]. https://gis.data.ca.gov/datasets/CDFW::oil-spill-incident-tracking-ds394?geometry=-147.064%2C30.769%2C-91.780%2C43.020
 
