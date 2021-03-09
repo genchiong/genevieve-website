@@ -1,7 +1,6 @@
 ---
 title: "Text Analysis: The Red Headed League by Sir Arthur Conan Doyle"
 description: |
-  A short description of the post.
 author:
   - name: Genevieve
     url: {}
@@ -10,7 +9,6 @@ output:
   distill::distill_article:
     self_contained: false
 ---
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
@@ -24,6 +22,11 @@ library(readtext)
 library(pdftools)
 library(tidytext)
 ```
+
+### Introduction 
+
+This report uses the text from the short story "The Red Headed League" by Sir Arthur Conan Doyle to create a visualization of counts for the most frequently used words, finalized in a word cloud, and to perform sentiment analysis using the NRC Lexicon.
+
 
 ```{r}
 # Read in the data
@@ -87,6 +90,15 @@ red_headed_league_nrc_counts %>%
 ```
 
 **Figure 2.** Sentiment analysis of Sir Arthur Conan Doyle's "The Red Headed League" using the NRC Emotion Lexicon. Data: Doyle, A.C. 1892.; Mohammed, S. and Turney, P. 2013.)
+
+
+### Summary
+
+Data analysis reveals the following findings: 
+
+- The most frequently used words include: holmes, red, business, wilson, time, headed. 
+- Words with a positive sentiment had the highest count in the story, followed by the sentiments trust and negative. 
+
 
 
 **Citations**

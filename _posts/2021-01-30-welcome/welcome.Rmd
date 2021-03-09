@@ -1,7 +1,6 @@
 ---
 title: "Welcome"
 description: |
-  A short description of the post.
 author:
   - name: Genevieve
 date: 01-30-2021
