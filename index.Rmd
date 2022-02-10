@@ -12,4 +12,4 @@ output: postcards::jolla
 site: distill::distill_website
 ---
  
-I am a first-year Master's student at the UCSB Bren School of Environmental Science & Management. When I'm not enjoying the outdoors, I enjoy baking, reading, and visiting museums. 
+I am a second-year Master's student at the UCSB Bren School of Environmental Science & Management. When I'm not enjoying the outdoors, I enjoy baking, reading, and visiting museums. 
